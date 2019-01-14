@@ -43,6 +43,7 @@ public class ProjectController {
 
     @DeleteMapping("/{projectId}")
     public void deleteProjectById(@PathVariable String projectId){
-        projectService.deleteProjectByIdentifier(projectId);
+        projectService.deleteProjectByIdentifier(projectId.toUpperCase());
     }
+
 }
