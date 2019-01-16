@@ -26,7 +26,7 @@ public class Project {
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date end_date;
 
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd@HH:mm:ss")  // , locale = "ua_UA"
     private Date created_At;
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date updated_At;
