@@ -33,7 +33,7 @@ class AddProject extends Component {
       end_date: this.state.end_date
     };
 
-    // this.props.createProject(newProject, this.props.history);
+    this.props.createProject(newProject, this.props.history);
   }
 
   render() {
@@ -110,4 +110,11 @@ class AddProject extends Component {
   }
 }
 
-export default AddProject;
+AddProject.propTypes = {
+  createProject: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  { createProject }
+)(AddProject);
