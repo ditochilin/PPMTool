@@ -12,6 +12,8 @@ import com.myppm.ppmtool.repositories.ProjectTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProjectTaskService {
 
@@ -76,5 +78,16 @@ public class ProjectTaskService {
         }
 
         return projectTask;
+    }
+
+    public ProjectTask updateByProjectSequence(ProjectTask updatedTask, String backlog_id, String sequence){
+        ProjectTask projectTask = findPTByProjectSequence(backlog_id, sequence);
+        projectTask = updatedTask;
+        return projectTaskRepository.save(projectTask);
+    }
+
+    public void deletePTByProjectSequence(String backlog_id, String sequence){
+        ProjectTask projectTask = findPTByProjectSequence(backlog_id, sequence);
+        projectTaskRepository.delete(projectTask);
     }
 }
