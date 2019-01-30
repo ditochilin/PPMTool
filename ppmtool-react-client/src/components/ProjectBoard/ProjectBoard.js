@@ -1,7 +1,18 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Backlog from "./Backlog";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { getBacklog } from "../../actions/backlogActions";
 
-export default class ProjectBoard extends Component {
+class ProjectBoard extends Component {
+  // constructor
+
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    this.props.getBacklog(id);
+  }
+
   render() {
     const { id } = this.props.match.params;
     return (
@@ -11,49 +22,22 @@ export default class ProjectBoard extends Component {
         </Link>
         <br />
         <hr />
-        <div className="container">
-          <div className="row">
-            <div className="col-md-4">
-              <div className="card text-center mb-2">
-                <div className="card-header bg-secondary text-white">
-                  <h3>TO DO</h3>
-                </div>
-              </div>
-
-              <div className="card mb-1 bg-light">
-                <div className="card-header text-primary">
-                  ID: projectSequence -- Priority: priorityString
-                </div>
-                <div className="card-body bg-light">
-                  <h5 className="card-title">project_task.summary</h5>
-                  <p className="card-text text-truncate ">
-                    project_task.acceptanceCriteria
-                  </p>
-                  <Link to={``} className="btn btn-primary">
-                    View / Update
-                  </Link>
-
-                  <button className="btn btn-danger ml-4">Delete</button>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="card text-center mb-2">
-                <div className="card-header bg-primary text-white">
-                  <h3>In Progress</h3>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="card text-center mb-2">
-                <div className="card-header bg-success text-white">
-                  <h3>Done</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Backlog />
       </div>
     );
   }
 }
+
+ProjectBoard.propTypes = {
+  backlog: PropTypes.object.isRequired,
+  getBacklog: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  backlog: state.backlog
+});
+
+export default connect(
+  mapStateToProps,
+  { getBacklog }
+)(ProjectBoard);
